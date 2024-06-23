@@ -1,0 +1,37 @@
+name: CI # Nom du workflow
+
+on:
+  push:
+    branches:
+      - main # Déclenche le workflow sur un push vers la branche 'main'
+
+jobs:
+  lint-and-build: # Nom du job
+    runs-on: ubuntu-latest # Spécifie l'environnement d'exécution (Ubuntu)
+
+    steps:
+      - name: Checkout repository # Étape 1 : Cloner le dépôt
+        uses: actions/checkout@v2 # Utilise l'action officielle pour cloner le dépôt
+
+      - name: Set up Node.js # Étape 2 : Configurer Node.js
+        uses: actions/setup-node@v2 # Utilise l'action officielle pour configurer Node.js
+        with:
+          node-version: '16' # Spécifie la version de Node.js à utiliser
+
+      - name: Install dependencies # Étape 3 : Installer les dépendances
+        run: npm install # Exécute la commande 'npm install'
+        working-directory: ./front # Spécifie le répertoire de travail où se trouve le projet front-end
+
+      - name: Lint code # Étape 4 : Vérifier l'intégrité du code avec ESLint
+        run: npm run lint # Exécute la commande 'npm run lint'
+        working-directory: ./front # Spécifie le répertoire de travail où se trouve le projet front-end
+
+      - name: Build project # Étape 5 : Construire le projet
+        run: npm run build # Exécute la commande 'npm run build'
+        working-directory: ./front # Spécifie le répertoire de travail où se trouve le projet front-end
+
+      - name: Deploy to GitHub Pages # Étape 6 : Déployer sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3 # Utilise l'action pour déployer sur GitHub Pages
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Utilise le jeton GitHub pour l'authentification
+          publish_dir: ./front/dist # Spécifie le répertoire de publication (dossier de build)
