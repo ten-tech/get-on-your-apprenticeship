@@ -1,0 +1,12 @@
+[build]
+  base = "api"
+  command = "npm run build:functions"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[functions]
+  directory = "dist/functions"

@@ -1,12 +1,12 @@
 {
-  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "Node16",
-    "target": "ESNext"
+    "skipLibCheck": true,
+    "outDir": "./dist/functions"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["functions/**/*.ts", "src/**/*.ts"],
   "exclude": ["node_modules"]
 }
