@@ -1,13 +1,14 @@
-import { ErrorRequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-const errorHandler: ErrorRequestHandler = function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
+const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+  // Définir le statut HTTP
   res.status(err.status || 500);
-  res.render('error');
+
+  // Envoyer une réponse JSON avec un message d'erreur
+  res.json({
+    message: err.message,
+    error: req.app.get('env') === 'development' ? err : {}
+  });
 };
 
 export default errorHandler;
