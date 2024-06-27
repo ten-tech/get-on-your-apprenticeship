@@ -1,6 +1,6 @@
 [build]
-  base = "api"
-  command = "npm run build:functions"
+  base = "front"
+  command = "npm run build"
   publish = "dist"
 
 [[redirects]]
@@ -9,4 +9,4 @@
   status = 200
 
 [functions]
-  directory = "dist/functions"
+  directory = "api/dist/functions"
